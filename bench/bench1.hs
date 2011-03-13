@@ -1,3 +1,4 @@
+{-# LANGUAGE BangPatterns #-}
 module Main where
 
 import Control.Monad
@@ -14,8 +15,8 @@ main = defaultMain [
   , bench "zlib /usr/share/dict/words" zlib
   ]
   where quicklz = do
-          x <- QLZ.compress `liftM` S.readFile "words"
-          print $ S.length x
+          !x <- (S.length . QLZ.compress) `liftM` S.readFile "words"
+          return ()
         zlib = do
-          x <- Zlib.compress `liftM` L.readFile "words"
-          print $ L.length x
+          !x <- (L.length . Zlib.compress) `liftM` L.readFile "words"
+          return ()
