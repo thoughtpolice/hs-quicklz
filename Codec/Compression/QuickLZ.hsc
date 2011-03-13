@@ -11,13 +11,30 @@
 -- 
 -- This module provides a high level 'ByteString' interface to
 -- the QuickLZ library. More info about quicklz can be found here:
--- http://quicklz.com
+-- <http://quicklz.com>
 -- 
--- QuickLZ is fast and compresses very well.
+-- QuickLZ is fast and compresses well.
 -- The library that is bundled with this version is QuickLZ v1.5.0,
 -- with the compression level set to 1.
 -- 
--- Streaming/enumerator interface coming soon.
+-- Truthfully, the only laws that hold with this library are the following:
+-- 
+-- @(decompress . compress) == id@
+-- 
+-- @(decompress xs) == (decompress xs)@
+-- 
+-- Note that:
+-- 
+-- @(compress xs) == (compress xs)@
+-- 
+-- Does not hold.
+-- QuickLZ uses random data to seed part of the compression, so the lengths
+-- and compressed results can differ. But they will always decompress back
+-- to the same string, e.g., @compress@ is not referentially transparent, but
+-- @decompress@ is (so don't go and insert compressed data as keys into any `Data.Map`s.)
+-- 
+-- Arguably this is an abomination; nonetheless, this pure interface is a
+-- nice abstraction.
 -- 
 module Codec.Compression.QuickLZ
 ( -- * Compressing and decompressing strict 'ByteString's
@@ -47,7 +64,7 @@ compress xs
         SI.createAndTrim (S.length xs + 400) $ \output -> do
           U.unsafeUseAsCStringLen xs $ \(cstr,len) -> 
             c_qlz_compress cstr output len compress_state
-
+{-# INLINEABLE compress #-}
 
 -- | Decompress the input 'ByteString'.
 decompress :: S.ByteString -> S.ByteString
@@ -59,6 +76,7 @@ decompress xs
         SI.createAndTrim sz $ \output -> do
           U.unsafeUseAsCString xs $ \cstr -> 
             c_qlz_decompress cstr output decompress_state
+{-# INLINEABLE decompress #-}
 
 -- 
 -- Simple bindings to some constants

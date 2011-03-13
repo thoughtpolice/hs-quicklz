@@ -2,7 +2,7 @@ name:                quicklz
 version:             1.5.0.2
 synopsis:            binding to QuickLZ compression library
 description:         
-  This package provides a high level binding to the QuickLZ (http:\/\/quicklz.com) library
+  This package provides a high level binding to the QuickLZ (<http:\\quicklz.com>) library
   for ByteStrings, under the GPLv2 license. QuickLZ is fast and compresses very well.
   .
   This package includes the QuickLZ 1.5.0 source code, with compression level 1 and streaming
@@ -62,5 +62,5 @@ test-suite properties
     test-framework-quickcheck2 == 0.2.*,
     quicklz
 
-  ghc-options:    -Wall
+  ghc-options:    -Wall -fno-cse
   default-language: Haskell98
