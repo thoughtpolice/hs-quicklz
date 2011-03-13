@@ -22,8 +22,11 @@ category:            Codec
 build-type:          Simple
 cabal-version:       >=1.10
 
-extra-source-files: cbits/quicklz.h, cbits/quicklz.c
-
+extra-source-files:
+  cbits/quicklz.h, cbits/quicklz.c,
+  tests/ex1.hs, tests/Properties.hs,
+  README
+  
 source-repository head
   type: git
   location: https://github.com/thoughtpolice/hs-quicklz.git
