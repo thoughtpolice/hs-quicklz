@@ -2,17 +2,17 @@ name:                quicklz
 version:             1.5.0.1
 synopsis:            binding to QuickLZ compression library
 description:         
-  This package provides a high level binding to the QuickLZ (http://quicklz.com) library
-  for ByteStrings, under the GPLv2. QuickLZ is fast and compresses very well.
+  This package provides a high level binding to the QuickLZ (http:\/\/quicklz.com) library
+  for ByteStrings, under the GPLv2 license. QuickLZ is fast and compresses very well.
   .
-  This package includes the QuickLZ source code, with compression level 1 and streaming
+  This package includes the QuickLZ 1.5.0 source code, with compression level 1 and streaming
   currently disabled.
   .
   The versioning scheme for this package is unusual. QuickLZ trys to be as fast as possible,
-  and will break backwards compatibility to achieve it in new versions. This versioning scheme
-  reflects the QuickLZ versioning scheme: the first three digits of version w.x.y.z digits are
+  and will break backwards compatibility to achieve it in newer versions. This versioning scheme
+  reflects the QuickLZ versioning scheme: the first three digits of version w.x.y.z are
   the quicklz version, with the 'z' component (and any further needed ones) being updates to this package,
-  not the underlying version.
+  not quicklz.
 homepage:            http://github.com/thoughtpolice/hs-quicklz
 license:             GPL-2
 license-file:        LICENSE
@@ -26,7 +26,7 @@ extra-source-files:
   cbits/quicklz.h, cbits/quicklz.c,
   tests/ex1.hs, tests/Properties.hs,
   README
-  
+
 source-repository head
   type: git
   location: https://github.com/thoughtpolice/hs-quicklz.git
