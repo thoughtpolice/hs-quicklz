@@ -12,6 +12,7 @@ main = defaultMain [ testGroup "simple" [
                        testProperty "compression identity" prop_compression_id
                      , testProperty "decompress is pure" prop_decompress_pure
                      , testProperty "compress is pure" prop_compress_pure
+                     , testProperty "overlapping is correct" prop_overlap_id
                      ]
                    ]
 
@@ -24,3 +25,7 @@ prop_decompress_pure (S.pack -> xs) =
 
 prop_compress_pure (S.pack -> xs) =
   (compress xs) == (compress xs)
+
+prop_overlap_id (S.pack -> xs) =
+  let z = compress xs
+  in (decompress z) == (decompress' z)
