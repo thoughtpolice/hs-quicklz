@@ -1,5 +1,4 @@
 {-# LANGUAGE CPP, ForeignFunctionInterface #-}
-
 -- |
 -- Module      : Codec.Compression.QuickLZ
 -- Copyright   : (c) Austin Seipp 2011
@@ -40,6 +39,7 @@ module Codec.Compression.QuickLZ
 ( -- * Compressing and decompressing strict 'ByteString's
   compress      -- :: S.ByteString -> S.ByteString
 , decompress    -- :: S.ByteString -> S.ByteString
+, decompress'   -- :: S.ByteString -> S.ByteString
 ) where
 
 import Foreign
@@ -80,6 +80,21 @@ decompress xs
             c_ <- c_qlz_decompress cstr output decompress_state
             return $ c_ - 4 -- hack: remove 4 ending bytes off of output string
 {-# INLINEABLE decompress #-}
+
+-- | Decompress the input 'ByteString' and save memory via overlapping decompression.
+decompress' :: S.ByteString -> S.ByteString
+decompress' xs
+  | S.null xs = S.empty
+  | otherwise = 
+      unsafePerformIO . allocaBytes qlz_state_decompress_sz $ \decompress_state -> do
+        d <- U.unsafeUseAsCString xs c_qlz_size_decompressed
+        let sz = (d + (d `shiftR` 3) + 400)
+        SI.createAndTrim sz $ \output -> do
+          U.unsafeUseAsCStringLen xs $ \(cstr,clen) -> do
+            let dest = output `plusPtr` (sz - clen)
+            SI.memcpy dest (castPtr cstr) (fromIntegral clen)
+            c_ <- c_qlz_decompress dest output decompress_state
+            return $ c_ - 4 -- hack: remove 4 ending bytes off of output string
 
 -- 
 -- Simple bindings to some constants
