@@ -1,5 +1,5 @@
 name:                quicklz
-version:             1.5.0.5
+version:             1.5.0.6
 synopsis:            binding to QuickLZ compression library
 description:         
   This package provides a high level binding to the QuickLZ (<http://quicklz.com>) library
@@ -14,6 +14,7 @@ description:
   the quicklz version, with the 'z' component (and any further needed ones) being updates to this package,
   not quicklz.
 homepage:            http://github.com/thoughtpolice/hs-quicklz
+bug-reports:         https://github.com/thoughtpolice/hs-quicklz/issues
 license:             GPL-2
 license-file:        LICENSE
 author:              Austin Seipp
