@@ -25,7 +25,7 @@ cabal-version:       >=1.10
 extra-source-files:
   cbits/quicklz.h, cbits/quicklz.c,
   tests/ex1.hs, tests/Properties.hs,
-  README
+  README.md
 
 source-repository head
   type: git
