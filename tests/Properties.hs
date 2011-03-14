@@ -1,7 +1,7 @@
 {-# LANGUAGE ViewPatterns #-}
 module Main (main) where
 
-import Data.ByteString.Char8
+import qualified Data.ByteString as S
 import Codec.Compression.QuickLZ
 
 import Test.Framework (defaultMain, testGroup)
@@ -9,17 +9,18 @@ import Test.Framework.Providers.QuickCheck2 (testProperty)
 
 main :: IO ()
 main = defaultMain [ testGroup "simple" [
-                       testProperty "compress identity" prop_id
-                     , testProperty "decompress transparent" prop_decompress_id
+                       testProperty "compression identity" prop_compression_id
+                     , testProperty "decompress is pure" prop_decompress_pure
+                     , testProperty "compress is pure" prop_compress_pure
                      ]
                    ]
 
-prop_id :: String -> Bool
-prop_id (pack -> xs) =
+prop_compression_id (S.pack -> xs) =
   xs == (decompress . compress) xs
 
-prop_decompress_id :: String -> Bool
-prop_decompress_id (pack -> xs) =
+prop_decompress_pure (S.pack -> xs) =
   let z  = compress xs
   in (decompress z) == (decompress z)
 
+prop_compress_pure (S.pack -> xs) =
+  (compress xs) == (compress xs)

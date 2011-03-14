@@ -17,21 +17,21 @@
 -- The library that is bundled with this version is QuickLZ v1.5.0,
 -- with the compression level set to 1.
 -- 
--- Truthfully, the only laws that hold with this library are the following:
+-- The following laws hold:
 -- 
 -- @(decompress . compress) == id@
 -- 
 -- @(decompress xs) == (decompress xs)@
 -- 
--- Note that:
--- 
 -- @(compress xs) == (compress xs)@
 -- 
--- Does not hold.
--- QuickLZ uses random data to seed part of the compression, so the lengths
--- and compressed results can differ. But they will always decompress back
--- to the same string, e.g., @compress@ is not referentially transparent, but
--- @decompress@ is (so don't go and insert compressed data as keys into any `Data.Map`s.)
+-- A word of notice: QuickLZ, for inputs of less than 5 bytes in length, will generate
+-- different compression results for the same input on identical runs.
+-- 
+-- Because this behavior is not referentially transparent, we use a hack: merely short-circuit
+-- on an empty input, and always pad the input with 4 extra null bytes otherwise. This yields
+-- identical compression results for every input, giving compress the above nice law.
+-- On decompression, after yielding the resulting string from decompression, we cut the characters off.
 -- 
 -- Arguably this is an abomination; nonetheless, this pure interface is a
 -- nice abstraction.
@@ -45,7 +45,7 @@ module Codec.Compression.QuickLZ
 import Foreign
 import Foreign.C
 
-import qualified Data.ByteString.Char8 as S
+import qualified Data.ByteString as S
 import qualified Data.ByteString.Internal as SI
 import qualified Data.ByteString.Unsafe as U
 
@@ -57,10 +57,12 @@ import qualified Data.ByteString.Unsafe as U
 
 -- | Compresses the input 'ByteString'.
 compress :: S.ByteString -> S.ByteString
-compress xs
-  | S.null xs = S.empty
+compress xs'
+  | S.null xs'    = S.empty
   | otherwise = 
-      unsafePerformIO . allocaBytes qlz_state_compress_sz $ \compress_state ->
+      -- hack: always append 4 extra bytes to ensure input len >= 5
+      let xs = xs' `S.append` (S.pack [0,0,0,0]) 
+      in unsafePerformIO . allocaBytes qlz_state_compress_sz $ \compress_state ->
         SI.createAndTrim (S.length xs + 400) $ \output -> do
           U.unsafeUseAsCStringLen xs $ \(cstr,len) -> 
             c_qlz_compress cstr output len compress_state
@@ -74,8 +76,9 @@ decompress xs
       unsafePerformIO . allocaBytes qlz_state_decompress_sz $ \decompress_state -> do
         sz <- U.unsafeUseAsCString xs c_qlz_size_decompressed
         SI.createAndTrim sz $ \output -> do
-          U.unsafeUseAsCString xs $ \cstr -> 
-            c_qlz_decompress cstr output decompress_state
+          U.unsafeUseAsCString xs $ \cstr -> do 
+            c_ <- c_qlz_decompress cstr output decompress_state
+            return $ c_ - 4 -- hack: remove 4 ending bytes off of output string
 {-# INLINEABLE decompress #-}
 
 -- 
