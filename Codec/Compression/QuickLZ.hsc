@@ -95,6 +95,7 @@ decompress' xs
             SI.memcpy dest (castPtr cstr) (fromIntegral clen)
             c_ <- c_qlz_decompress dest output decompress_state
             return $ c_ - 4 -- hack: remove 4 ending bytes off of output string
+{-# INLINEABLE decompress' #-}
 
 -- 
 -- Simple bindings to some constants
