@@ -8,33 +8,13 @@
 -- Stability   : experimental
 -- Portability : portable
 -- 
--- This module provides a high level 'ByteString' interface to
--- the QuickLZ library. More info about quicklz can be found here:
+-- This module provides a high level 'ByteString' interface to the
+-- QuickLZ library. More information about quicklz can be found here:
 -- <http://quicklz.com>
 -- 
--- QuickLZ is fast and compresses well.
--- The library that is bundled with this version is QuickLZ v1.5.0,
--- with the compression level set to 1.
--- 
--- The following laws hold:
--- 
--- @(decompress . compress) == id@
--- 
--- @(decompress xs) == (decompress xs)@
--- 
--- @(compress xs) == (compress xs)@
--- 
--- A word of notice: QuickLZ, for inputs of less than 5 bytes in length, will generate
--- different compression results for the same input on identical runs.
--- 
--- Because this behavior is not referentially transparent, we use a hack: merely short-circuit
--- on an empty input, and always pad the input with 4 extra null bytes otherwise. This yields
--- identical compression results for every input, giving compress the above nice law.
--- On decompression, after yielding the resulting string from decompression, we cut the characters off.
--- 
--- Arguably this is an abomination; nonetheless, this pure interface is a
--- nice abstraction.
--- 
+-- QuickLZ is fast and compresses well.  The library that is bundled
+-- with this version is QuickLZ v1.5.0, with the compression level set
+-- to 1.
 module Codec.Compression.QuickLZ
 ( -- * Compressing and decompressing strict 'ByteString's
   compress      -- :: S.ByteString -> S.ByteString
@@ -50,6 +30,24 @@ import qualified Data.ByteString.Internal as SI
 import qualified Data.ByteString.Unsafe as U
 
 #include <quicklz.h>
+
+
+-- 
+-- A word of notice: QuickLZ, for inputs of less than 5 bytes in
+-- length, will generate different compression results for the same
+-- input on identical runs.
+--
+-- Because this behavior is not referentially transparent, we use a
+-- hack: merely short-circuit on an empty input, and always pad the
+-- input with 4 extra null bytes otherwise. This yields identical
+-- compression results for every input, giving compress the above nice
+-- law.  On decompression, after yielding the resulting string from
+-- decompression, we cut the characters off.
+--
+-- Arguably this is an abomination; nonetheless, this pure interface
+-- is a nice abstraction.
+--
+
 
 -- 
 -- High-level interface
@@ -100,6 +98,7 @@ decompress' xs
 -- 
 -- Simple bindings to some constants
 -- 
+
 qlz_state_compress_sz :: Int
 qlz_state_compress_sz = #{size qlz_state_compress}
 qlz_state_decompress_sz :: Int
@@ -108,6 +107,7 @@ qlz_state_decompress_sz = #{size qlz_state_decompress}
 --
 -- FFI Bindings
 -- 
+
 foreign import ccall unsafe "quicklz.h qlz_compress"
   c_qlz_compress :: Ptr a -> Ptr b -> Int -> Ptr c -> IO Int
 
