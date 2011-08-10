@@ -8,7 +8,7 @@ description:
   This package includes the QuickLZ 1.5.0 source code, with compression level 1 and streaming
   currently disabled.
   .
-  The versioning scheme for this package is unusual. QuickLZ trys to be as fast as possible,
+  The versioning scheme for this package is unusual. QuickLZ tries to be as fast as possible,
   and will break backwards compatibility to achieve it in newer versions. This versioning scheme
   reflects the QuickLZ versioning scheme: the first three digits of version w.x.y.z are
   the quicklz version, with the 'z' component (and any further needed ones) being updates to this package,
