@@ -5,3 +5,4 @@ dist
 *.chs.h
 *~
 *.exe
+cabal-dev
