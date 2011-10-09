@@ -1,5 +1,5 @@
 name:                quicklz
-version:             1.5.0.7
+version:             1.5.0.8
 synopsis:            binding to QuickLZ compression library
 description:         
   This package provides a high level binding to the QuickLZ (<http://quicklz.com>) library
