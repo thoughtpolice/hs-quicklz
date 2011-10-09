@@ -22,15 +22,17 @@ module Codec.Compression.QuickLZ
 , decompress'   -- :: S.ByteString -> S.ByteString
 ) where
 
-import Foreign
+import Data.Bits
+import Foreign.Ptr
+import Foreign.Marshal.Alloc
 import Foreign.C
+import System.IO.Unsafe (unsafePerformIO)
 
 import qualified Data.ByteString as S
 import qualified Data.ByteString.Internal as SI
 import qualified Data.ByteString.Unsafe as U
 
 #include <quicklz.h>
-
 
 -- 
 -- A word of notice: QuickLZ, for inputs of less than 5 bytes in
