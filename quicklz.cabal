@@ -19,7 +19,7 @@ description:
 homepage:            http://github.com/thoughtpolice/hs-quicklz
 bug-reports:         https://github.com/thoughtpolice/hs-quicklz/issues
 license:             GPL-2
-license-file:        LICENSE
+license-file:        LICENSE.txt
 author:              Austin Seipp
 maintainer:          as@hacks.yi.org
 category:            Codec
@@ -29,7 +29,7 @@ cabal-version:       >=1.10
 extra-source-files:
   cbits/quicklz.h, cbits/quicklz.c,
   tests/ex1.hs, tests/Properties.hs,
-  README.md
+  README.md, AUTHORS.txt
 
 source-repository head
   type: git

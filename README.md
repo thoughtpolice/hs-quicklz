@@ -33,11 +33,11 @@ Master [git repository][gh]:
 
 # Authors
 
-Austin Seipp <as@hacks.yi.org>
+See `AUTHORS.txt`.
 
 # License.
 
-GPLv2. See `LICENSE` for terms of copyright and redistribution.
+GPLv2. See `LICENSE.txt` for terms of copyright and redistribution.
 
 # TODO
 
