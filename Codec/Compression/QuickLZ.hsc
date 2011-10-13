@@ -1,4 +1,4 @@
-{-# LANGUAGE CPP, ForeignFunctionInterface #-}
+{-# LANGUAGE CPP #-}
 -- |
 -- Module      : Codec.Compression.QuickLZ
 -- Copyright   : (c) Austin Seipp 2011
@@ -16,12 +16,11 @@
 -- with this version is QuickLZ v1.5.0, with the compression level set
 -- to 1.
 module Codec.Compression.QuickLZ
-( -- * Compressing and decompressing strict 'ByteString's
-  compress      -- :: S.ByteString -> S.ByteString
-, decompress    -- :: S.ByteString -> S.ByteString
-, decompress'   -- :: S.ByteString -> S.ByteString
-) where
-
+       ( -- * Compressing and decompressing strict 'ByteString's
+         compress      -- :: S.ByteString -> S.ByteString
+       , decompress    -- :: S.ByteString -> S.ByteString
+       , decompress'   -- :: S.ByteString -> S.ByteString
+       ) where
 import Data.Bits
 import Foreign.Ptr
 import Foreign.Marshal.Alloc

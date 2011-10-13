@@ -1,18 +1,21 @@
 name:                quicklz
 version:             1.5.0.8
-synopsis:            binding to QuickLZ compression library
-description:         
-  This package provides a high level binding to the QuickLZ (<http://quicklz.com>) library
-  for ByteStrings, under the GPLv2 license. QuickLZ is fast and compresses very well.
+synopsis:            QuickLZ compression for ByteStrings
+description:
+  This package provides a high level binding to the QuickLZ
+  compression library for @ByteStrings@, under the GPLv2
+  license. QuickLZ is fast and compresses very well. Check out the
+  home page: <http://quicklz.com>
   .
-  This package includes the QuickLZ 1.5.0 source code, with compression level 1 and streaming
-  currently disabled.
+  This package includes the QuickLZ 1.5.0 source code, at
+  compression level 1 and streaming mode disabled.
   .
-  The versioning scheme for this package is unusual. QuickLZ tries to be as fast as possible,
-  and will break backwards compatibility to achieve it in newer versions. This versioning scheme
-  reflects the QuickLZ versioning scheme: the first three digits of version w.x.y.z are
-  the quicklz version, with the 'z' component (and any further needed ones) being updates to this package,
-  not quicklz.
+  The versioning scheme for this package is unusual. QuickLZ tries to
+  be as fast as possible, and will break backwards compatibility to
+  achieve it in newer versions. This versioning scheme reflects the
+  QuickLZ versioning scheme: the first three digits of version w.x.y.z
+  are the quicklz version, with the 'z' component (and any further
+  needed ones) being updates to this package, not quicklz itself.
 homepage:            http://github.com/thoughtpolice/hs-quicklz
 bug-reports:         https://github.com/thoughtpolice/hs-quicklz/issues
 license:             GPL-2
@@ -48,7 +51,7 @@ library
   ghc-options:     -Wall -O2 -fwarn-tabs
   if flag(memory-safe)
     cpp-options:   -DDEBUG
-  default-language: Haskell98
+  default-language: Haskell2010
  
 test-suite properties
   hs-source-dirs: tests
@@ -64,4 +67,4 @@ test-suite properties
     quicklz
 
   ghc-options:      -fno-cse
-  default-language: Haskell98
+  default-language: Haskell2010

@@ -1,19 +1,54 @@
-# hs-quicklz: haskell bindings to quicklz
+# Fast compression for Haskell ByteStrings
 
-This library implements haskell bindings to [QuickLZ](http://quicklz.com), a fast
-compression library. The interface is very simple:
+This library implements Haskell bindings to
+[QuickLZ](http://quicklz.com), a fast compression library. The
+interface is very simple:
 
-    compress    :: ByteString -> ByteString
-    decompress  :: ByteString -> ByteString
-    decompress' :: ByteString -> ByteString -- overlapping decompression
+```haskell
+compress    :: ByteString -> ByteString
+decompress  :: ByteString -> ByteString
+decompress' :: ByteString -> ByteString -- overlapping decompression
+```
 
-As the name states, QuickLZ is fast - very fast at both compression and decompression.
-Per its own benchmarks, at compression level 1, QuickLZ 1.5.0 has a compression speed
-of 308Mbyte/s, and a decompression speed of 358Mbyte/s (their benchmarks, Core i7 920.)
-This package has some benchmarks and tests associated - I would like to expand the benchmarks
-to include bigger data sets in the future.
+As the name states, QuickLZ is fast - at both compression and
+decompression.  Per their own benchmarks, at compression level 1,
+QuickLZ 1.5.0 has a compression speed of 308Mbyte/s, and a
+decompression speed of 358Mbyte/s (their benchmarks, Core i7 920.)
 
-There is currently only an interface for strict bytestrings.
+# Installation
 
-I would like to implement the streaming mode functionality sometime in the future, perhaps
-tying it to John Millikin's [enumerator](http://hackage.haskell.org/package/enumerator) package.
+Just use cabal:
+
+```
+cabal install quicklz
+```
+
+# Join in
+
+File bugs in the GitHub [issue tracker][].
+
+Master [git repository][gh]:
+
+* `git clone https://github.com/thoughtpolice/hs-quicklz.git`
+
+# Authors
+
+Austin Seipp <as@hacks.yi.org>
+
+# License.
+
+GPLv2. See `LICENSE` for terms of copyright and redistribution.
+
+# TODO
+
+This package has some benchmarks and tests associated - I would like
+to expand the benchmarks to include bigger data sets in the future.
+
+There is currently only an interface for strict `ByteString`s.
+
+I would like to implement the streaming mode functionality sometime in
+the future, perhaps tying it to John Millikin's
+[enumerator](http://hackage.haskell.org/package/enumerator) package.
+
+[issue tracker]: https://github.com/thoughtpolice/hs-quicklz/issues
+[gh]: https://github.com/thoughtpolice/hs-quicklz
