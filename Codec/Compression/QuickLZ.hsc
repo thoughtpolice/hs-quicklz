@@ -1,10 +1,10 @@
 {-# LANGUAGE CPP #-}
 -- |
 -- Module      : Codec.Compression.QuickLZ
--- Copyright   : (c) Austin Seipp 2011
+-- Copyright   : (c) Austin Seipp 2011-2012
 -- License     : GPLv2
 -- 
--- Maintainer  : as@hacks.yi.org
+-- Maintainer  : mad.one@gmail.com
 -- Stability   : experimental
 -- Portability : portable
 -- 
