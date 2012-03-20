@@ -15,6 +15,8 @@ decompression.  Per their own benchmarks, at compression level 1,
 QuickLZ 1.5.0 has a compression speed of 308Mbyte/s, and a
 decompression speed of 358Mbyte/s (their benchmarks, Core i7 920.)
 
+[travis-ci.org](http://travis-ci.org) results: [![Build Status](https://secure.travis-ci.org/thoughtpolice/hs-quicklz.png?branch=master)](http://travis-ci.org/thoughtpolice/hs-quicklz)
+
 # Installation
 
 Just use cabal:
