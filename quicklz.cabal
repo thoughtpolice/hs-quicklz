@@ -1,5 +1,5 @@
 name:                quicklz
-version:             1.5.0.9
+version:             1.5.0.10
 synopsis:            QuickLZ compression for ByteStrings
 description:
   This package provides a high level binding to the QuickLZ
@@ -42,8 +42,8 @@ flag memory-safe
 library
   exposed-modules: Codec.Compression.QuickLZ	
   build-depends: 
-    base >= 3 && < 5,
-    bytestring == 0.9.*
+    base < 5,
+    bytestring >= 0.9
 
   c-sources:       cbits/quicklz.c
   include-dirs:    cbits
@@ -59,7 +59,7 @@ test-suite properties
   type:           exitcode-stdio-1.0
 
   build-depends:
-    base,
+    base < 5,
     bytestring     >= 0.9,
     QuickCheck     >= 2.4,
     test-framework >= 0.4,
