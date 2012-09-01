@@ -1,5 +1,5 @@
 name:                quicklz
-version:             1.5.0.10
+version:             1.5.0.11
 synopsis:            QuickLZ compression for ByteStrings
 description:
   This package provides a high level binding to the QuickLZ
